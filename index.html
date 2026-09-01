@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reading Room — IELTS Academic Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A22;
+    --ink-soft:#28392F;
+    --paper:#F1EDE1;
+    --paper-card:#FBF9F3;
+    --paper-line:#DAD3C0;
+    --accent:#8A5A32;
+    --accent-soft:#C99A63;
+    --text:#242017;
+    --muted:#736C5C;
+    --correct:#2E6E4E;
+    --correct-bg:#E7F0E7;
+    --incorrect:#A63F30;
+    --incorrect-bg:#F3E4DF;
+    --radius:3px;
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --shadow: 0 1px 2px rgba(27,42,34,0.06), 0 8px 24px rgba(27,42,34,0.06);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--accent-soft); color:var(--ink); }
+
+  a{ color:inherit; }
+
+  /* ---------- App shell ---------- */
+  .app{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  header.top{
+    background:var(--ink);
+    color:#EFE9DA;
+    padding:22px 32px 0 32px;
+  }
+  .top-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    max-width:1180px;
+    margin:0 auto;
+    padding-bottom:18px;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:22px;
+    letter-spacing:0.2px;
+  }
+  .brand small{
+    display:block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:12.5px;
+    color:#B9AE95;
+    margin-top:2px;
+    letter-spacing:0.2px;
+  }
+
+  nav.modes{
+    display:flex;
+    gap:2px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .mode-btn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    color:#C9BFA9;
+    font-family:var(--sans);
+    font-size:15px;
+    font-weight:500;
+    padding:12px 22px;
+    cursor:pointer;
+    position:relative;
+    transition:color .25s ease;
+  }
+  .mode-btn:hover{ color:#EFE9DA; }
+  .mode-btn.active{ color:#EFE9DA; }
+  .mode-btn.active::after{
+    content:"";
+    position:absolute;
+    left:22px; right:22px; bottom:0;
+    height:2px;
+    background:var(--accent-soft);
+    border-radius:2px;
+  }
+
+  /* subnav pills */
+  .subnav{
+    background:var(--paper-card);
+    border-bottom:1px solid var(--paper-line);
+    padding:14px 32px;
+    position:sticky;
+    top:0;
+    z-index:5;
+  }
+  .subnav-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .pill{
+    appearance:none;
+    border:1px solid var(--paper-line);
+    background:transparent;
+    color:var(--muted);
+    font-family:var(--sans);
+    font-size:13.5px;
+    font-weight:500;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    white-space:nowrap;
+  }
+  .pill:hover{ border-color:var(--accent-soft); color:var(--ink); }
+  .pill.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#EFE9DA;
+  }
+
+  main{
+    flex:1;
+    max-width:1180px;
+    width:100%;
+    margin:0 auto;
+    padding:36px 32px 80px 32px;
+  }
+
+  .fade-in{
+    animation:fadeIn .35s ease both;
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fade-in, .stagger{ animation:none !important; transition:none !important; }
+  }
+
+  .task-header{
+    margin-bottom:22px;
+  }
+  .task-eyebrow{
+    color:var(--accent);
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .task-header h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:32px;
+    margin:0 0 8px 0;
+    color:var(--ink);
+  }
+  .task-header p{
+    color:var(--muted);
+    font-size:14.5px;
+    max-width:640px;
+    line-height:1.55;
+    margin:0;
+  }
+
+  .split{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:28px;
+    align-items:start;
+  }
+  @media (max-width:920px){
+    .split{ grid-template-columns:1fr; }
+  }
+
+  .panel{
+    background:var(--paper-card);
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+
+  .passage{
+    padding:30px 32px;
+    max-height:640px;
+    overflow-y:auto;
+  }
+  .passage h2{
+    font-family:var(--serif);
+    font-size:19px;
+    margin:0 0 14px 0;
+    color:var(--ink);
+  }
+  .passage p{
+    font-size:15px;
+    line-height:1.75;
+    color:var(--text);
+    margin:0 0 14px 0;
+  }
+  .passage .section-label{
+    display:inline-block;
+    font-family:var(--serif);
+    font-weight:600;
+    color:var(--accent);
+    font-size:15px;
+    margin-right:6px;
+  }
+  .passage .gloss{
+    font-size:12.5px;
+    color:var(--muted);
+    border-top:1px solid var(--paper-line);
+    margin-top:18px;
+    padding-top:14px;
+  }
+
+  .questions{
+    padding:30px 32px;
+  }
+  .questions h2{
+    font-family:var(--serif);
+    font-size:19px;
+    margin:0 0 6px 0;
+    color:var(--ink);
+  }
+  .questions .instructions{
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+    margin-bottom:20px;
+  }
+
+  .word-box{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    background:var(--paper);
+    border:1px dashed var(--paper-line);
+    padding:12px 14px;
+    border-radius:var(--radius);
+    margin-bottom:22px;
+  }
+  .word-box span{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    background:var(--paper-card);
+    border:1px solid var(--paper-line);
+    padding:4px 10px;
+    border-radius:14px;
+  }
+
+  .q-row{
+    padding:14px 0;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .q-row:first-of-type{ padding-top:0; }
+  .q-row:last-of-type{ border-bottom:none; }
+
+  .q-num{
+    font-family:var(--serif);
+    font-weight:600;
+    color:var(--accent);
+    font-size:14px;
+    margin-right:8px;
+  }
+  .q-prompt{
+    font-size:14.5px;
+    color:var(--text);
+    margin-bottom:10px;
+    line-height:1.5;
+  }
+
+  input[type="text"], select{
+    width:100%;
+    font-family:var(--sans);
+    font-size:14.5px;
+    padding:9px 12px;
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    background:#fff;
+    color:var(--text);
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  input[type="text"]:focus, select:focus{
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(138,90,50,0.14);
+  }
+
+  .radio-group{ display:flex; flex-direction:column; gap:8px; }
+  .radio-opt{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    font-size:14px;
+    color:var(--text);
+    cursor:pointer;
+    padding:6px 8px;
+    border-radius:var(--radius);
+    transition:background .15s ease;
+  }
+  .radio-opt:hover{ background:var(--paper); }
+  .radio-opt input{ margin-top:3px; }
+
+  .result-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    font-weight:600;
+    padding:3px 10px;
+    border-radius:12px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+  .result-tag.correct{ background:var(--correct-bg); color:var(--correct); }
+  .result-tag.incorrect{ background:var(--incorrect-bg); color:var(--incorrect); }
+
+  .explanation{
+    margin-top:8px;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.55;
+    background:var(--paper);
+    border-left:2px solid var(--paper-line);
+    padding:9px 12px;
+    display:none;
+  }
+  .q-row.checked .explanation{ display:block; }
+  .q-row.checked.incorrect .explanation{ border-left-color:var(--incorrect); }
+  .q-row.checked.correct .explanation{ border-left-color:var(--correct); }
+
+  .checked input[type="text"], .checked select{
+    border-color:var(--paper-line);
+  }
+  .q-row.checked.correct input[type="text"], .q-row.checked.correct select{
+    border-color:var(--correct);
+  }
+  .q-row.checked.incorrect input[type="text"], .q-row.checked.incorrect select{
+    border-color:var(--incorrect);
+  }
+
+  .action-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:24px;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    appearance:none;
+    border:none;
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:600;
+    padding:12px 22px;
+    border-radius:var(--radius);
+    cursor:pointer;
+    transition:transform .12s ease, background .2s ease, opacity .2s ease;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:#EFE9DA;
+  }
+  .btn-primary:hover{ background:var(--ink-soft); }
+  .btn-primary:active{ transform:scale(0.98); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--muted);
+    border:1px solid var(--paper-line);
+  }
+  .btn-ghost:hover{ color:var(--ink); border-color:var(--accent-soft); }
+
+  .score-pill{
+    font-size:13.5px;
+    color:var(--ink);
+    font-weight:600;
+    background:var(--paper);
+    border:1px solid var(--paper-line);
+    padding:8px 16px;
+    border-radius:20px;
+    display:none;
+  }
+  .score-pill.show{ display:inline-block; animation:fadeIn .3s ease; }
+
+  /* ---------- Writing ---------- */
+  .writing-layout{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+  .prompt-card{
+    padding:28px 32px;
+  }
+  .prompt-card .prompt-box{
+    background:var(--paper);
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    padding:18px 20px;
+    font-size:15px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    font-style:italic;
+    font-family:var(--serif);
+    margin:16px 0;
+  }
+  .meta-row{
+    display:flex;
+    gap:18px;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:6px;
+    flex-wrap:wrap;
+  }
+
+  .chart-wrap{ margin:20px 0; }
+  .chart-wrap svg{ width:100%; height:auto; display:block; }
+
+  textarea{
+    width:100%;
+    min-height:280px;
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.7;
+    padding:18px 20px;
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    background:#fff;
+    color:var(--text);
+    resize:vertical;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  textarea:focus{
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(138,90,50,0.14);
+  }
+
+  .word-count{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+  .word-count.ok{ color:var(--correct); }
+  .word-count.low{ color:var(--incorrect); }
+
+  .feedback{
+    margin-top:26px;
+    display:none;
+  }
+  .feedback.show{ display:block; animation:fadeIn .4s ease; }
+
+  .check-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px solid var(--paper-line);
+    font-size:14px;
+  }
+  .check-row:last-child{ border-bottom:none; }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    flex-shrink:0;
+  }
+  .dot.ok{ background:var(--correct); }
+  .dot.warn{ background:var(--incorrect); }
+
+  .criteria-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:18px;
+  }
+  @media (max-width:760px){ .criteria-grid{ grid-template-columns:1fr; } }
+  .criteria-card{
+    background:var(--paper);
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    padding:16px 18px;
+  }
+  .criteria-card h3{
+    font-family:var(--serif);
+    font-size:15px;
+    margin:0 0 8px 0;
+    color:var(--ink);
+  }
+  .criteria-card p{
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.6;
+    margin:0;
+  }
+
+  details.samples{
+    margin-top:22px;
+    border-top:1px solid var(--paper-line);
+    padding-top:18px;
+  }
+  details.samples summary{
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    list-style:none;
+  }
+  details.samples summary::-webkit-details-marker{ display:none; }
+  details.samples summary::before{
+    content:"+ ";
+    color:var(--accent);
+  }
+  details.samples[open] summary::before{ content:"– "; }
+
+  .sample{
+    margin-top:16px;
+    padding:16px 18px;
+    background:var(--paper);
+    border-radius:var(--radius);
+    border:1px solid var(--paper-line);
+  }
+  .sample-band{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink);
+    background:var(--accent-soft);
+    padding:3px 10px;
+    border-radius:10px;
+    margin-bottom:8px;
+  }
+  .sample-comment{
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+
+  footer.credits{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--muted);
+    padding:24px 0 40px 0;
+  }
+
+  @media (max-width:640px){
+    header.top{ padding:18px 18px 0 18px; }
+    .subnav{ padding:12px 18px; }
+    main{ padding:26px 18px 60px 18px; }
+    .passage, .questions, .prompt-card{ padding:22px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div class="top-row">
+      <div class="brand">The Reading Room<small>IELTS Academic — self-paced practice</small></div>
+    </div>
+    <nav class="modes">
+      <button class="mode-btn active" data-mode="reading">Academic Reading</button>
+      <button class="mode-btn" data-mode="writing">Academic Writing</button>
+    </nav>
+  </header>
+
+  <div class="subnav">
+    <div class="subnav-inner" id="subnav"></div>
+  </div>
+
+  <main id="main"></main>
+
+  <footer class="credits">Practice material adapted from official IELTS Academic sample tasks.</footer>
+</div>
+
+<script>
+/* ================= DATA ================= */
+
+const READING_TASKS = [
+  {
+    id:'diagram',
+    label:'Diagram Labelling',
+    title:'Diagram Label Completion',
+    subject:'Dung beetles',
+    instructions:'Label the tunnels on the diagram using words from the box below. One word has already been used as an example is not needed here — choose freely from the box.',
+    wordBox:['French','Spanish','Mediterranean','South African','Australian native','South African ball roller'],
+    passage:[
+      `Introducing dung beetles into a pasture is a simple process: approximately 1,500 beetles are released, a handful at a time, into fresh cow pats in the cow pasture. The beetles immediately disappear beneath the pats digging and tunnelling and, if they successfully adapt to their new environment, soon become a permanent, self-sustaining part of the local ecology. In time they multiply and within three or four years the benefits to the pasture are obvious.`,
+      `Dung beetles work from the inside of the pat so they are sheltered from predators such as birds and foxes. Most species burrow into the soil and bury dung in tunnels directly underneath the pats, which are hollowed out from within. Some large species originating from France excavate tunnels to a depth of approximately 30 cm below the dung pat. These beetles make sausage-shaped brood chambers along the tunnels. The shallowest tunnels belong to a much smaller Spanish species that buries dung in chambers that hang like fruit from the branches of a pear tree. South African beetles dig narrow tunnels of approximately 20 cm below the surface of the pat. Some surface-dwelling beetles, including a South African species, cut perfectly-shaped balls from the pat, which are rolled away and attached to the bases of plants.`,
+      `For maximum dung burial in spring, summer and autumn, farmers require a variety of species with overlapping periods of activity. In the cooler environments of the state of Victoria, the large French species (2.5 cms long), is matched with smaller (half this size), temperate-climate Spanish species. The former are slow to recover from the winter cold and produce only one or two generations of offspring from late spring until autumn. The latter, which multiply rapidly in early spring, produce two to five generations annually. The South African ball-rolling species, being a sub-tropical beetle, prefers the climate of northern and coastal New South Wales where it commonly works with the South African tunnelling species. In warmer climates, many species are active for longer periods of the year.`
+    ],
+    glossary:['dung: the droppings or excreta of animals','cow pats: droppings of cows'],
+    diagram:true,
+    questions:[
+      {num:6, depth:'20 cm', type:'text', answers:['south african'], explanation:'The passage states South African beetles dig narrow tunnels of approximately 20 cm below the surface, matching the middle depth on the diagram.'},
+      {num:7, depth:'30 cm', type:'text', answers:['french'], explanation:'The French species excavates the deepest tunnels of the group described, to approximately 30 cm below the dung pat.'},
+      {num:8, depth:'near surface', type:'text', answers:['spanish'], explanation:'The Spanish species has the shallowest tunnels, described as hanging chambers "like fruit from the branches of a pear tree," placing it nearest the surface.'}
+    ]
+  },
+  {
+    id:'identifying-info',
+    label:'Identifying Information',
+    title:'Identifying Information',
+    subject:'Motor vehicles and society',
+    instructions:'The passage below has eight paragraphs, A–H. Choose the letter of the paragraph that contains each piece of information. You may use any letter more than once.',
+    passage:[
+      `<span class="section-label">A</span> There are now over 700 million motor vehicles in the world - and the number is rising by more than 40 million each year. The average distance driven by car users is growing too - from 8km a day per person in western Europe in 1965 to 25 km a day in 1995. This dependence on motor vehicles has given rise to major problems, including environmental pollution, depletion of oil resources, traffic congestion and safety.`,
+      `<span class="section-label">B</span> While emissions from new cars are far less harmful than they used to be, city streets and motorways are becoming more crowded than ever, often with older trucks, buses and taxis which emit excessive levels of smoke and fumes. This concentration of vehicles makes air quality in urban areas unpleasant and sometimes dangerous to breathe. Even Moscow has joined the list of capitals afflicted by congestion and traffic fumes. In Mexico City, vehicle pollution is a major health hazard.`,
+      `<span class="section-label">C</span> Until a hundred years ago, most journeys were in the 20km range, the distance conveniently accessible by horse. Heavy freight could only be carried by water or rail. Invention of the motor vehicle brought personal mobility to the masses and made rapid freight delivery possible over a much wider area. In the United Kingdom, about 90 per cent of inland freight is carried by road. The world cannot revert to the horse-drawn wagon. Can it avoid being locked into congested and polluting ways of transporting people and goods?`,
+      `<span class="section-label">D</span> In Europe most cities are still designed for the old modes of transport. Adaptation to the motor car has involved adding ring roads, one-way systems and parking lots. In the United States, more land is assigned to car use than to housing. Urban sprawl means that life without a car is next to impossible. Mass use of motor vehicles has also killed or injured millions of people. Other social effects have been blamed on the car such as alienation and aggressive human behaviour.`,
+      `<span class="section-label">E</span> A 1993 study by the European Federation for Transport and Environment found that car transport is seven times as costly as rail travel in terms of the external social costs it entails - congestion, accidents, pollution, loss of cropland and natural habitats, depletion of oil resources, and so on. Yet cars easily surpass trains or buses as a flexible and convenient mode of personal transport. It is unrealistic to expect people to give up private cars in favour of mass transit.`,
+      `<span class="section-label">F</span> Technical solutions can reduce the pollution problem and increase the fuel efficiency of engines. But fuel consumption and exhaust emissions depend on which cars are preferred by customers and how they are driven. Many people buy larger cars than they need for daily purposes or waste fuel by driving aggressively. Besides, global car use is increasing at a faster rate than the improvement in emissions and fuel efficiency which technology is now making possible.`,
+      `<span class="section-label">G</span> Some argue that the only long-term solution is to design cities and neighbourhoods so that car journeys are not necessary - all essential services being located within walking distance or easily accessible by public transport. Not only would this save energy and cut carbon dioxide emissions, it would also enhance the quality of community life, putting the emphasis on people instead of cars. Good local government is already bringing this about in some places. But few democratic communities are blessed with the vision - and the capital - to make such profound changes in modern lifestyles.`,
+      `<span class="section-label">H</span> A more likely scenario seems to be a combination of mass transit systems for travel into and around cities, with small 'low emission' cars for urban use and larger hybrid or lean burn cars for use elsewhere. Electronically tolled highways might be used to ensure that drivers pay charges geared to actual road use. Better integration of transport systems is also highly desirable - and made more feasible by modern computers. But these are solutions for countries which can afford them. In most developing countries, old cars and old technologies continue to predominate.`
+    ],
+    questions:[
+      {num:14, prompt:'a comparison of past and present transportation methods', type:'select-letter', letters:['A','B','C','D','E','F','G','H'], answer:'C', explanation:'Paragraph C contrasts journeys "until a hundred years ago" (horse-drawn, 20km range) with the mobility and freight capacity brought by the motor vehicle.'},
+      {num:15, prompt:'how driving habits contribute to road problems', type:'select-letter', letters:['A','B','C','D','E','F','G','H'], answer:'F', explanation:'Paragraph F discusses how people buy larger cars than needed and drive aggressively, wasting fuel and worsening emissions.'},
+      {num:16, prompt:'the relative merits of cars and public transport', type:'select-letter', letters:['A','B','C','D','E','F','G','H'], answer:'E', explanation:'Paragraph E weighs the high social cost of cars against their flexibility compared with trains or buses.'},
+      {num:17, prompt:"the writer's prediction on future solutions", type:'select-letter', letters:['A','B','C','D','E','F','G','H'], answer:'H', explanation:'Paragraph H opens with "A more likely scenario seems to be..." — a direct prediction about future transport solutions.'},
+      {num:18, prompt:'the increasing use of motor vehicles', type:'select-letter', letters:['A','B','C','D','E','F','G','H'], answer:'A', explanation:'Paragraph A opens the passage with statistics on the rising number of vehicles and distance driven.'},
+      {num:19, prompt:'the impact of the car on city development', type:'select-letter', letters:['A','B','C','D','E','F','G','H'], answer:'D', explanation:'Paragraph D describes how European and American cities have physically adapted to accommodate cars.'}
+    ]
+  },
+  {
+    id:'writers-views',
+    label:"Writer's Views",
+    title:"Identifying Writer's Views / Claims",
+    subject:'Smoking and passive smoking',
+    instructions:'Do the following statements reflect the claims of the writer? Choose YES, NO, or NOT GIVEN for each.',
+    passage:[
+      `Discovered in the early 1800s and named 'nicotianine', the oily essence now called nicotine is the main active ingredient of tobacco. Nicotine, however, is only a small component of cigarette smoke, which contains more than 4,700 chemical compounds, including 43 cancer-causing substances. In recent times, scientific research has been providing evidence that years of cigarette smoking vastly increases the risk of developing fatal medical conditions.`,
+      `In addition to being responsible for more than 85 per cent of lung cancers, smoking is associated with cancers of, amongst others, the mouth, stomach and kidneys, and is thought to cause about 14 per cent of leukemia and cervical cancers. In 1990, smoking caused more than 84,000 deaths, mainly resulting from such problems as pneumonia, bronchitis and influenza. Smoking, it is believed, is responsible for 30 per cent of all deaths from cancer and clearly represents the most important preventable cause of cancer in countries like the United States today.`,
+      `Passive smoking, the breathing in of the side-stream smoke from the burning of tobacco between puffs or of the smoke exhaled by a smoker, also causes a serious health risk. A report published in 1992 by the US Environmental Protection Agency (EPA) emphasized the health dangers, especially from side-stream smoke. This type of smoke contains more smaller particles and is therefore more likely to be deposited deep in the lungs. On the basis of this report, the EPA has classified environmental tobacco smoke in the highest risk category for causing cancer.`,
+      `As an illustration of the health risks, in the case of a married couple where one partner is a smoker and one a non-smoker, the latter is believed to have a 30 per cent higher risk of death from heart disease because of passive smoking. The risk of lung cancer also increases over the years of exposure and the figure jumps to 80 per cent if the spouse has been smoking four packs a day for 20 years. It has been calculated that 17 per cent of cases of lung cancer can be attributed to high levels of exposure to second-hand tobacco smoke during childhood and adolescence.`,
+      `A more recent study by researchers at the University of California at San Francisco (UCSF) has shown that second-hand cigarette smoke does more harm to non-smokers than to smokers. Leaving aside the philosophical question of whether anyone should have to breathe someone else's cigarette smoke, the report suggests that the smoke experienced by many people in their daily lives is enough to produce substantial adverse effects on a person's heart and lungs.`,
+      `The report, published in the Journal of the American Medical Association (AMA), was based on the researchers' own earlier research but also includes a review of studies over the past few years. The American Medical Association represents about half of all US doctors and is a strong opponent of smoking. The study suggests that people who smoke cigarettes are continually damaging their cardiovascular system, which adapts in order to compensate for the effects of smoking. It further states that people who do not smoke do not have the benefit of their system adapting to the smoke inhalation. Consequently, the effects of passive smoking are far greater on non-smokers than on smokers.`
+    ],
+    questions:[
+      {num:4, prompt:'Thirty per cent of deaths in the United States are caused by smoking-related diseases.', type:'select-tgn', answer:'NO', explanation:'The passage says smoking is responsible for 30 per cent of all deaths from cancer — not 30 per cent of all deaths overall. The statement misrepresents the figure, so it contradicts the writer.'},
+      {num:5, prompt:'If one partner in a marriage smokes, the other is likely to take up smoking.', type:'select-tgn', answer:'NOT GIVEN', explanation:'The passage discusses the non-smoking partner\'s increased health risk from passive smoking, but never mentions them taking up smoking themselves.'},
+      {num:6, prompt:'Teenagers whose parents smoke are at risk of getting lung cancer at some time during their lives.', type:'select-tgn', answer:'YES', explanation:'The passage states that 17 per cent of lung cancer cases can be attributed to high exposure to second-hand smoke during childhood and adolescence, supporting this claim.'},
+      {num:7, prompt:'Opponents of smoking financed the UCSF study.', type:'select-tgn', answer:'NOT GIVEN', explanation:'The passage mentions the AMA is a strong opponent of smoking and published the report, but does not state that anyone financed the UCSF research.'}
+    ]
+  },
+  {
+    id:'matching-features',
+    label:'Matching Features',
+    title:'Matching Features',
+    subject:'The history of rockets',
+    instructions:'Match each item with the group that first invented or used it. You may use any letter more than once.',
+    groups:[['A','the Chinese'],['B','the Indians'],['C','the British'],['D','the Arabs'],['E','the Americans']],
+    passage:[
+      `The invention of rockets is linked inextricably with the invention of 'black powder'. Most historians of technology credit the Chinese with its discovery. They base their belief on studies of Chinese writings or on the notebooks of early Europeans who settled in or made long visits to China to study its history and civilisation. It is probable that, some time in the tenth century, black powder was first compounded from its basic ingredients of saltpetre, charcoal and sulphur. But this does not mean that it was immediately used to propel rockets. By the thirteenth century, powder-propelled fire arrows had become rather common. The Chinese relied on this type of technological development to produce incendiary projectiles of many sorts, explosive grenades and possibly cannons to repel their enemies. One such weapon was the 'basket of fire', or, as directly translated from Chinese, the 'arrows like flying leopards'. The 0.7 metre-long arrows, each with a long tube of gunpowder attached near the point of each arrow, could be fired from a long, octagonal-shaped basket at the same time and had a range of 400 paces. Another weapon was the 'arrow as a flying sabre', which could be fired from crossbows. The rocket, placed in a similar position to other rocket-propelled arrows, was designed to increase the range. A small iron weight was attached to the 1.5m bamboo shaft, just below the feathers, to increase the arrow's stability by moving the centre of gravity to a position below the rocket. At a similar time, the Arabs had developed the 'egg which moves and burns'. This 'egg' was apparently full of gunpowder and stabilised by a 1.5m tail. It was fired using two rockets attached to either side of this tail.`,
+      `It was not until the eighteenth century that Europe became seriously interested in the possibilities of using the rocket itself as a weapon of war and not just to propel other weapons. Prior to this, rockets were used only in pyrotechnic displays. The incentive for the more aggressive use of rockets came not from within the European continent but from far-away India, whose leaders had built up a corps of rocketeers and used rockets successfully against the British in the late eighteenth century. The Indian rockets used against the British were described by a British Captain serving in India as 'an iron envelope about 200 millimetres long and 40 millimetres in diameter with sharp points at the top and a 3m-long bamboo guiding stick'. In the early nineteenth century the British began to experiment with incendiary barrage rockets. The British rocket differed from the Indian version in that it was completely encased in a stout, iron cylinder, terminating in a conical head, measuring one metre in diameter and having a stick almost five metres long and constructed in such a way that it could be firmly attached to the body of the rocket. The Americans developed a rocket, complete with its own launcher, to use against the Mexicans in the mid-nineteenth century. A long cylindrical tube was propped up by two sticks and fastened to the top of the launcher, thereby allowing the rockets to be inserted and lit from the other end. However, the results were sometimes not that impressive as the behaviour of the rockets in flight was less than predictable.`
+    ],
+    questions:[
+      {num:7, prompt:'black powder', type:'select-letter', letters:['A','B','C','D','E'], answer:'A', explanation:'Most historians credit the Chinese with the discovery of black powder around the tenth century.'},
+      {num:8, prompt:'rocket-propelled arrows for fighting', type:'select-letter', letters:['A','B','C','D','E'], answer:'A', explanation:'By the thirteenth century, the Chinese were using powder-propelled fire arrows such as the "basket of fire" as weapons.'},
+      {num:9, prompt:'rockets as war weapons', type:'select-letter', letters:['A','B','C','D','E'], answer:'B', explanation:'The passage states the incentive for using the rocket itself as a weapon of war came from India, whose rocketeers used them against the British.'},
+      {num:10, prompt:'the rocket launcher', type:'select-letter', letters:['A','B','C','D','E'], answer:'E', explanation:'The Americans developed a rocket complete with its own launcher for use against the Mexicans in the mid-nineteenth century.'}
+    ]
+  },
+  {
+    id:'matching-headings',
+    label:'Matching Headings',
+    title:'Matching Headings',
+    subject:'Farming, government policy and the environment',
+    instructions:'Choose the correct heading for each section from the list below. Write the matching roman numeral. Section E has been done for you as an example.',
+    headingsList:[
+      ['i','The probable effects of the new international trade agreement'],
+      ['ii','The environmental impact of modern farming'],
+      ['iii','Farming and soil erosion'],
+      ['iv','The effects of government policy in rich countries'],
+      ['v','Governments and management of the environment'],
+      ['vi','The effects of government policy in poor countries'],
+      ['vii','Farming and food output'],
+      ['viii','The effects of government policy on food output'],
+      ['ix','The new prospects for world trade']
+    ],
+    sections:[
+      {letter:'A', num:1, answer:'v', explanation:'This section discusses the role of governments in managing natural resources and subsidies — general environmental management, not a specific rich/poor country policy.',
+       text:`The role of governments in environmental management is difficult but inescapable. Sometimes, the state tries to manage the resources it owns, and does so badly. Often, however, governments act in an even more harmful way. They actually subsidise the exploitation and consumption of natural resources. A whole range of policies, from farm-price support to protection for coal-mining, do environmental damage and (often) make no economic sense. Scrapping them offers a two-fold bonus: a cleaner environment and a more efficient economy. Growth and environmentalism can actually go hand in hand, if politicians have the courage to confront the vested interest that subsidies create.`},
+      {letter:'B', num:2, answer:'vii', explanation:'This section focuses on how much land farming occupies and how world food output per head has risen — the theme of farming and food output.',
+       text:`No activity affects more of the earth's surface than farming. It shapes a third of the planet's land area, not counting Antarctica, and the proportion is rising. World food output per head has risen by 4 per cent between the 1970s and 1980s mainly as a result of increases in yields from land already in cultivation, but also because more land has been brought under the plough. Higher yields have been achieved by increased irrigation, better crop breeding, and a doubling in the use of pesticides and chemical fertilisers in the 1970s and 1980s.`},
+      {letter:'C', num:3, answer:'ii', explanation:'This section catalogues the range of damaging environmental impacts caused by modern farming practices, from deforestation to soil erosion.',
+       text:`All these activities may have damaging environmental impacts. For example, land clearing for agriculture is the largest single cause of deforestation; chemical fertilisers and pesticides may contaminate water supplies; more intensive farming and the abandonment of fallow periods tend to exacerbate soil erosion; and the spread of monoculture and use of high-yielding varieties of crops have been accompanied by the disappearance of old varieties of food plants which might have provided some insurance against pests or diseases in future. Soil erosion threatens the productivity of land in both rich and poor countries. The United States, where the most careful measurements have been done, discovered in 1982 that about one-fifth of its farmland was losing topsoil at a rate likely to diminish the soil's productivity. The country subsequently embarked upon a program to convert 11 per cent of its cropped land to meadow or forest. Topsoil in India and China is vanishing much faster than in America.`},
+      {letter:'D', num:4, answer:'iv', explanation:'This section describes subsidies, fertiliser and pesticide use specifically in rich countries such as Denmark, the Netherlands, and New Zealand.',
+       text:`Government policies have frequently compounded the environmental damage that farming can cause. In the rich countries, subsidies for growing crops and price supports for farm output drive up the price of land. The annual value of these subsidies is immense: about $250 billion, or more than all World Bank lending in the 1980s. To increase the output of crops per acre, a farmer's easiest option is to use more of the most readily available inputs: fertilisers and pesticides. Fertiliser use doubled in Denmark in the period 1960-1985 and increased in The Netherlands by 150 per cent. The quantity of pesticides applied has risen too: by 69 per cent in 1975-1984 in Denmark, for example, with a rise of 115 per cent in the frequency of application in the three years from 1981.
+       In the late 1980s and early 1990s some efforts were made to reduce farm subsidies. The most dramatic example was that of New Zealand, which scrapped most farm support in 1984. A study of the environmental effects, conducted in 1993, found that the end of fertiliser subsidies had been followed by a fall in fertiliser use. The removal of subsidies also stopped land-clearing and over-stocking, which in the past had been the principal causes of erosion. Farms began to diversify.`},
+      {letter:'E', num:null, answer:'vi', example:true,
+       text:`In poor countries, governments aggravate other sorts of damage. Subsidies for pesticides and artificial fertilisers encourage farmers to use greater quantities than are needed to get the highest economic crop yield. A study by the International Rice Research Institute of pesticide use by farmers in South East Asia found that, with pest-resistant varieties of rice, even moderate applications of pesticide frequently cost farmers more than they saved. Such waste puts farmers on a chemical treadmill: bugs and weeds become resistant to poisons, so next year's poisons must be more lethal. One cost is to human health. Every year some 10,000 people die from pesticide poisoning, almost all of them in the developing countries, and another 400,000 become seriously ill.`},
+      {letter:'F', num:5, answer:'i', explanation:'This section discusses the Uruguay Round of world trade negotiations and its likely effects on farm subsidies and food production — the probable effects of the new trade agreement.',
+       text:`A result of the Uruguay Round of world trade negotiations is likely to be a reduction of 36 per cent in the average levels of farm subsidies paid by the rich countries in 1986-1990. Some of the world's food production will move from Western Europe to regions where subsidies are lower or non-existent, such as the former communist countries and parts of the developing world. Some environmentalists worry about this outcome. It will undoubtedly mean more pressure to convert natural habitat into farmland. But it will also have many desirable environmental effects. The intensity of farming in the rich world should decline, and the use of chemical inputs will diminish.`}
+    ]
+  },
+  {
+    id:'multiple-choice',
+    label:'Multiple Choice',
+    title:'Multiple Choice',
+    subject:'Government subsidies and farming',
+    instructions:'Choose the correct letter, A, B, C or D.',
+    passage:[
+      `All these activities may have damaging environmental impacts. For example, land clearing for agriculture is the largest single cause of deforestation; chemical fertilisers and pesticides may contaminate water supplies; more intensive farming and the abandonment of fallow periods tend to exacerbate soil erosion; and the spread of monoculture and use of high-yielding varieties of crops have been accompanied by the disappearance of old varieties of food plants which might have provided some insurance against pests or diseases in future. Soil erosion threatens the productivity of land in both rich and poor countries. The United States, where the most careful measurements have been done, discovered in 1982 that about one-fifth of its farmland was losing topsoil at a rate likely to diminish the soil's productivity. The country subsequently embarked upon a program to convert 11 per cent of its cropped land to meadow or forest. Topsoil in India and China is vanishing much faster than in America.`,
+      `Government policies have frequently compounded the environmental damage that farming can cause. In the rich countries, subsidies for growing crops and price supports for farm output drive up the price of land. The annual value of these subsidies is immense: about $250 billion, or more than all World Bank lending in the 1980s. To increase the output of crops per acre, a farmer's easiest option is to use more of the most readily available inputs: fertilisers and pesticides. Fertiliser use doubled in Denmark in the period 1960-1985 and increased in The Netherlands by 150 per cent. The quantity of pesticides applied has risen too: by 69 per cent in 1975-1984 in Denmark, for example, with a rise of 115 per cent in the frequency of application in the three years from 1981.`,
+      `In the late 1980s and early 1990s some efforts were made to reduce farm subsidies. The most dramatic example was that of New Zealand, which scrapped most farm support in 1984. A study of the environmental effects, conducted in 1993, found that the end of fertiliser subsidies had been followed by a fall in fertiliser use (a fall compounded by the decline in world commodity prices, which cut farm incomes). The removal of subsidies also stopped land-clearing and over-stocking, which in the past had been the principal causes of erosion. Farms began to diversify. The one kind of subsidy whose removal appeared to have been bad for the environment was the subsidy to manage soil erosion.`,
+      `In less enlightened countries, and in the European Union, the trend has been to reduce rather than eliminate subsidies, and to introduce new payments to encourage farmers to treat their land in environmentally friendlier ways, or to leave it fallow.`
+    ],
+    questions:[
+      {num:10, prompt:"Research completed in 1982 found that in the United States soil erosion", type:'radio',
+        options:[
+          ['A','reduced the productivity of farmland by 20 per cent.'],
+          ['B','was almost as severe as in India and China.'],
+          ['C','was causing significant damage to 20 per cent of farmland.'],
+          ['D','could be reduced by converting cultivated land to meadow or forest.']
+        ], answer:'C', explanation:'The passage states about one-fifth (i.e. 20 per cent) of US farmland was "losing topsoil at a rate likely to diminish the soil\'s productivity" — matching option C, not A which misstates the loss as a 20% reduction in productivity itself.'},
+      {num:11, prompt:'By the mid-1980s, farmers in Denmark', type:'radio',
+        options:[
+          ['A','used 50 per cent less fertiliser than Dutch farmers.'],
+          ['B','used twice as much fertiliser as they had in 1960.'],
+          ['C','applied fertiliser much more frequently than in 1960.'],
+          ['D','more than doubled the amount of pesticide they used in just 3 years.']
+        ], answer:'B', explanation:'The passage states "Fertiliser use doubled in Denmark in the period 1960-1985," which matches option B directly.'},
+      {num:12, prompt:'Which one of the following increased in New Zealand after 1984?', type:'radio',
+        options:[
+          ['A','farm incomes'],
+          ['B','use of fertiliser'],
+          ['C','over-stocking'],
+          ['D','farm diversification']
+        ], answer:'D', explanation:'The passage states that after subsidies were scrapped, "farms began to diversify," while fertiliser use, over-stocking, and farm incomes all fell or were unaffected positively.'}
+    ]
+  },
+  {
+    id:'table',
+    label:'Table Completion',
+    title:'Table Completion',
+    subject:'Dung beetles',
+    instructions:'Complete the table below. Use no more than three words from the passage for each answer.',
+    passage:[
+      `Introducing dung beetles into a pasture is a simple process: approximately 1,500 beetles are released, a handful at a time, into fresh cow pats in the cow pasture. The beetles immediately disappear beneath the pats digging and tunnelling and, if they successfully adapt to their new environment, soon become a permanent, self-sustaining part of the local ecology. In time they multiply and within three or four years the benefits to the pasture are obvious.`,
+      `Dung beetles work from the inside of the pat so they are sheltered from predators such as birds and foxes. Most species burrow into the soil and bury dung in tunnels directly underneath the pats, which are hollowed out from within. Some large species originating from France excavate tunnels to a depth of approximately 30 cm below the dung pat. These beetles make sausage-shaped brood chambers along the tunnels. The shallowest tunnels belong to a much smaller Spanish species that buries dung in chambers that hang like fruit from the branches of a pear tree. South African beetles dig narrow tunnels of approximately 20 cm below the surface of the pat. Some surface-dwelling beetles, including a South African species, cut perfectly-shaped balls from the pat, which are rolled away and attached to the bases of plants.`,
+      `For maximum dung burial in spring, summer and autumn, farmers require a variety of species with overlapping periods of activity. In the cooler environments of the state of Victoria, the large French species (2.5 cms long), is matched with smaller (half this size), temperate-climate Spanish species. The former are slow to recover from the winter cold and produce only one or two generations of offspring from late spring until autumn. The latter, which multiply rapidly in early spring, produce two to five generations annually. The South African ball-rolling species, being a sub-tropical beetle, prefers the climate of northern and coastal New South Wales where it commonly works with the South African tunnelling species. In warmer climates, many species are active for longer periods of the year.`
+    ],
+    table:true,
+    questions:[
+      {num:9, col:'climate', type:'text', answers:['temperate'], explanation:'The passage describes the Spanish species as "temperate-climate," matched with the cooler-climate French species.'},
+      {num:10, col:'start', type:'text', answers:['early spring'], explanation:'The passage states the Spanish species "multiply rapidly in early spring."'},
+      {num:11, col:'generations', type:'text', answers:['two to five','2-5','2 to 5','2-5 generations'], explanation:'The passage states the Spanish species "produce two to five generations annually."'},
+      {num:12, col:'climate2', type:'text', answers:['sub-tropical','subtropical'], explanation:'The passage describes the South African ball-rolling species as "being a sub-tropical beetle."'},
+      {num:13, col:'complementary', type:'text', answers:['south african tunnelling','south african tunneling','south african tunnelling species','south african tunneling species'], explanation:'The passage states the ball-rolling species "commonly works with the South African tunnelling species."'}
+    ]
+  }
+];
+
+const WRITING_TASKS = [
+  {
+    id:'task1',
+    label:'Task 1',
+    title:'Academic Writing — Task 1',
+    time:'about 20 minutes',
+    minWords:150,
+    prompt:'The chart below shows the number of men and women in further education in Britain in three periods and whether they were studying full-time or part-time.',
+    instruction:'Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.',
+    criteria:[
+      {name:'Task Achievement', text:'How appropriately, accurately and relevantly the response covers the key trends and figures shown in the chart, without speculating beyond the data.'},
+      {name:'Coherence and Cohesion', text:'How clearly ideas are organised and linked, using logical sequencing and a varied, appropriate range of cohesive devices.'},
+      {name:'Lexical Resource', text:'The range, accuracy and appropriacy of vocabulary used to describe trends and figures.'},
+      {name:'Grammatical Range and Accuracy', text:'The range and accurate use of grammatical structures at sentence level.'}
+    ],
+    samples:[
+      {label:'Sample A', band:'Band 5', comment:'The length of the answer is just acceptable. There is a good attempt to describe the overall trends but the content would have been greatly improved with reference to the figures on the graph. Some punctuation errors cause confusion, and attempts at complex sentences are not fully successful.'},
+      {label:'Sample B', band:'Band 6', comment:'A good attempt to describe global trends and more detailed figures, though some information is missing or slightly inaccurate. Connectives are overused, and while grammatical accuracy is fairly good, sentence complexity and variation are limited.'},
+      {label:'Sample C', band:'Band 7', comment:'The answer deals well with both individual trends and overall comparisons. There is a good variety of cohesive devices, complex structures and varied vocabulary, with only minor errors in word form, tense and voice.'}
+    ]
+  },
+  {
+    id:'task2',
+    label:'Task 2',
+    title:'Academic Writing — Task 2',
+    time:'about 40 minutes',
+    minWords:250,
+    prompt:'The first car appeared on British roads in 1888. By the year 2000 there may be as many as 29 million vehicles on British roads. Alternative forms of transport should be encouraged and international laws introduced to control car ownership and use.',
+    instruction:'To what extent do you agree or disagree? Give reasons for your answer and include any relevant examples from your knowledge or experience. Write at least 250 words.',
+    criteria:[
+      {name:'Task Response', text:'How fully a clear position is formulated and developed in response to the prompt, supported by relevant ideas, evidence and examples.'},
+      {name:'Coherence and Cohesion', text:'How logically ideas are organised into paragraphs and linked using a varied, accurate range of cohesive devices.'},
+      {name:'Lexical Resource', text:'The range, precision and appropriacy of vocabulary used to develop and support the argument.'},
+      {name:'Grammatical Range and Accuracy', text:'The range and accurate use of grammatical structures, including complex sentences, at sentence level.'}
+    ],
+    samples:[
+      {label:'Sample A', band:'Band 5', comment:'The answer is short and loses marks for content. There are some relevant arguments but these are not well developed. Structures are quite ambitious but often faulty, and vocabulary is kept simple.'},
+      {label:'Sample B', band:'Band 6', comment:'There are a lot of ideas with an overall coherence, though the introduction is slightly long. Organisational devices are evident but some areas are unclear. There is evidence of complex sentence forms alongside some grammatical errors.'},
+      {label:'Sample C', band:'Band 7', comment:'A well-written answer with good arguments and a clear point of view throughout. Ideas are arranged well with good cohesive devices, and structures are wide-ranging and well handled, with only small vocabulary issues.'}
+    ]
+  }
+];
+
+/* ================= STATE ================= */
+let state = { mode:'reading', readingTaskId: READING_TASKS[0].id, writingTaskId: WRITING_TASKS[0].id };
+
+/* ================= HELPERS ================= */
+function norm(s){
+  return (s||'').toString().trim().toLowerCase()
+    .replace(/[.,]/g,'')
+    .replace(/-/g,' ')
+    .replace(/\s+/g,' ');
+}
+function isCorrectText(value, answers){
+  const v = norm(value);
+  return answers.some(a => norm(a) === v);
+}
+
+/* ================= RENDER: SUBNAV ================= */
+function renderSubnav(){
+  const el = document.getElementById('subnav');
+  el.innerHTML='';
+  const tasks = state.mode==='reading' ? READING_TASKS : WRITING_TASKS;
+  const activeId = state.mode==='reading' ? state.readingTaskId : state.writingTaskId;
+  tasks.forEach(t=>{
+    const btn = document.createElement('button');
+    btn.className = 'pill' + (t.id===activeId ? ' active':'');
+    btn.textContent = t.label;
+    btn.onclick = ()=>{
+      if(state.mode==='reading') state.readingTaskId = t.id;
+      else state.writingTaskId = t.id;
+      renderSubnav();
+      renderMain();
+    };
+    el.appendChild(btn);
+  });
+}
+
+/* ================= RENDER: READING ================= */
+function renderReading(){
+  const task = READING_TASKS.find(t=>t.id===state.readingTaskId);
+  const main = document.getElementById('main');
+
+  let passageHtml = `<div class="panel passage"><h2>${task.subject}</h2>`;
+  task.passage.forEach(p=>{ passageHtml += `<p>${p}</p>`; });
+  if(task.groups){
+    passageHtml += `<div class="word-box">`;
+    task.groups.forEach(g=>{ passageHtml += `<span>${g[0]} — ${g[1]}</span>`; });
+    passageHtml += `</div>`;
+  }
+  if(task.glossary){
+    passageHtml += `<div class="gloss">${task.glossary.join('<br>')}</div>`;
+  }
+  passageHtml += `</div>`;
+
+  let questionsHtml = `<div class="panel questions"><h2>Questions</h2><div class="instructions">${task.instructions}</div>`;
+
+  if(task.wordBox){
+    questionsHtml += `<div class="word-box">`;
+    task.wordBox.forEach(w=>{ questionsHtml += `<span>${w}</span>`; });
+    questionsHtml += `</div>`;
+  }
+
+  if(task.diagram){
+    questionsHtml += renderDiagram(task);
+  } else if(task.table){
+    questionsHtml += renderTable(task);
+  } else if(task.sections){
+    questionsHtml += renderHeadingSections(task);
+  } else {
+    task.questions.forEach(q=>{
+      questionsHtml += renderQuestionRow(q);
+    });
+  }
+
+  questionsHtml += `
+    <div class="action-row">
+      <button class="btn btn-primary" onclick="checkReading('${task.id}')">Check answers</button>
+      <span class="score-pill" id="score-pill"></span>
+    </div>
+  </div>`;
+
+  main.innerHTML = `
+    <div class="task-header fade-in">
+      <div class="task-eyebrow">Academic Reading</div>
+      <h1>${task.title}</h1>
+      <p>Read the passage, answer every question, then press Check answers to see which are correct and why.</p>
+    </div>
+    <div class="split fade-in">${passageHtml}${questionsHtml}</div>
+  `;
+}
+
+function renderQuestionRow(q){
+  let inner = '';
+  if(q.type==='text'){
+    inner = `<input type="text" id="q-${q.num}" placeholder="Type your answer" />`;
+  } else if(q.type==='select-letter'){
+    inner = `<select id="q-${q.num}"><option value="">— choose a letter —</option>`;
+    q.letters.forEach(l=>{ inner += `<option value="${l}">${l}</option>`; });
+    inner += `</select>`;
+  } else if(q.type==='select-tgn'){
+    inner = `<select id="q-${q.num}"><option value="">— choose —</option>
+      <option value="YES">YES</option>
+      <option value="NO">NO</option>
+      <option value="NOT GIVEN">NOT GIVEN</option>
+    </select>`;
+  } else if(q.type==='radio'){
+    inner = `<div class="radio-group">`;
+    q.options.forEach(o=>{
+      inner += `<label class="radio-opt"><input type="radio" name="q-${q.num}" value="${o[0]}"><span><strong>${o[0]}.</strong> ${o[1]}</span></label>`;
+    });
+    inner += `</div>`;
+  }
+  return `
+    <div class="q-row" id="row-${q.num}">
+      <div class="q-prompt"><span class="q-num">${q.num}</span>${q.prompt || ''}</div>
+      ${inner}
+      <div class="explanation" id="exp-${q.num}"></div>
+    </div>`;
+}
+
+function renderDiagram(task){
+  let html = `<div class="chart-wrap"><svg viewBox="0 0 460 260" xmlns="http://www.w3.org/2000/svg">
+    <line x1="90" y1="20" x2="90" y2="230" stroke="#DAD3C0" stroke-width="1.5"/>
+    <text x="30" y="24" font-size="11" fill="#736C5C" font-family="Inter">0 cm</text>
+    <text x="30" y="90" font-size="11" fill="#736C5C" font-family="Inter">10 cm</text>
+    <text x="30" y="156" font-size="11" fill="#736C5C" font-family="Inter">20 cm</text>
+    <text x="30" y="222" font-size="11" fill="#736C5C" font-family="Inter">30 cm</text>
+    <line x1="85" y1="20" x2="95" y2="20" stroke="#8A5A32" stroke-width="1.5"/>
+    <line x1="85" y1="86" x2="95" y2="86" stroke="#8A5A32" stroke-width="1.5"/>
+    <line x1="85" y1="152" x2="95" y2="152" stroke="#8A5A32" stroke-width="1.5"/>
+    <line x1="85" y1="218" x2="95" y2="218" stroke="#8A5A32" stroke-width="1.5"/>
+    <ellipse cx="220" cy="20" rx="90" ry="10" fill="#C99A63" opacity="0.35"/>
+    <text x="180" y="14" font-size="11" fill="#28392F" font-family="Inter">cow pat (dung)</text>
+    <line x1="150" y1="25" x2="150" y2="70" stroke="#28392F" stroke-width="1.5"/>
+    <line x1="200" y1="25" x2="200" y2="140" stroke="#28392F" stroke-width="1.5"/>
+    <line x1="260" y1="25" x2="260" y2="205" stroke="#28392F" stroke-width="1.5"/>
+  </svg></div>`;
+  task.questions.forEach(q=>{
+    html += `<div class="q-row" id="row-${q.num}">
+      <div class="q-prompt"><span class="q-num">${q.num}</span>Tunnel at approximately ${q.depth}</div>
+      <input type="text" id="q-${q.num}" placeholder="Type the species" />
+      <div class="explanation" id="exp-${q.num}"></div>
+    </div>`;
+  });
+  return html;
+}
+
+function renderTable(task){
+  const q9=task.questions[0], q10=task.questions[1], q11=task.questions[2], q12=task.questions[3], q13=task.questions[4];
+  return `
+  <table style="width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:20px;">
+    <thead>
+      <tr style="border-bottom:1px solid var(--paper-line);">
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;">Species</th>
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;">Size</th>
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;">Climate</th>
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;">Complementary species</th>
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;">Start of activity</th>
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;">Generations / yr</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--paper-line);">
+        <td style="padding:10px 6px;">French</td><td style="padding:10px 6px;">2.5 cm</td>
+        <td style="padding:10px 6px;">cool</td><td style="padding:10px 6px;">Spanish</td>
+        <td style="padding:10px 6px;">late spring</td><td style="padding:10px 6px;">1–2</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--paper-line);">
+        <td style="padding:10px 6px;">Spanish</td><td style="padding:10px 6px;">1.25 cm</td>
+        <td style="padding:6px;"><input type="text" id="q-9" style="min-width:100px;"/></td>
+        <td style="padding:10px 6px;color:var(--muted);">—</td>
+        <td style="padding:6px;"><input type="text" id="q-10" style="min-width:110px;"/></td>
+        <td style="padding:6px;"><input type="text" id="q-11" style="min-width:100px;"/></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 6px;">South African ball roller</td><td style="padding:10px 6px;color:var(--muted);">—</td>
+        <td style="padding:6px;"><input type="text" id="q-12" style="min-width:110px;"/></td>
+        <td style="padding:6px;"><input type="text" id="q-13" style="min-width:180px;"/></td>
+        <td style="padding:10px 6px;color:var(--muted);">—</td>
+        <td style="padding:10px 6px;color:var(--muted);">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="q-row" id="row-9"><div class="q-prompt"><span class="q-num">9</span>Preferred climate of the Spanish species</div><div class="explanation" id="exp-9"></div></div>
+  <div class="q-row" id="row-10"><div class="q-prompt"><span class="q-num">10</span>Start of active period of the Spanish species</div><div class="explanation" id="exp-10"></div></div>
+  <div class="q-row" id="row-11"><div class="q-prompt"><span class="q-num">11</span>Generations per year of the Spanish species</div><div class="explanation" id="exp-11"></div></div>
+  <div class="q-row" id="row-12"><div class="q-prompt"><span class="q-num">12</span>Preferred climate of the South African ball roller</div><div class="explanation" id="exp-12"></div></div>
+  <div class="q-row" id="row-13"><div class="q-prompt"><span class="q-num">13</span>Complementary species of the South African ball roller</div><div class="explanation" id="exp-13"></div></div>
+  `;
+}
+
+function renderHeadingSections(task){
+  let html = `<div class="word-box">`;
+  task.headingsList.forEach(h=>{ html += `<span>${h[0]}. ${h[1]}</span>`; });
+  html += `</div>`;
+  task.sections.forEach(s=>{
+    if(s.example){
+      html += `<div class="q-row">
+        <div class="q-prompt"><span class="q-num">Section ${s.letter}</span> (Example)</div>
+        <select disabled><option>${s.answer} — ${task.headingsList.find(h=>h[0]===s.answer)[1]}</option></select>
+      </div>`;
+    } else {
+      html += `<div class="q-row" id="row-${s.num}">
+        <div class="q-prompt"><span class="q-num">${s.num}</span>Section ${s.letter}</div>
+        <select id="q-${s.num}"><option value="">— choose a heading —</option>`;
+      task.headingsList.forEach(h=>{ html += `<option value="${h[0]}">${h[0]}. ${h[1]}</option>`; });
+      html += `</select>
+        <div class="explanation" id="exp-${s.num}"></div>
+      </div>`;
+    }
+  });
+  return html;
+}
+
+function checkReading(taskId){
+  const task = READING_TASKS.find(t=>t.id===taskId);
+  let questions = task.questions;
+  if(task.sections){
+    questions = task.sections.filter(s=>!s.example).map(s=>({num:s.num, type:'select-letter', answer:s.answer, explanation:s.explanation}));
+  }
+  let correctCount = 0;
+  questions.forEach(q=>{
+    const row = document.getElementById('row-'+q.num);
+    const exp = document.getElementById('exp-'+q.num);
+    let userVal = '';
+    let ok = false;
+
+    if(q.type==='radio'){
+      const checked = document.querySelector(`input[name="q-${q.num}"]:checked`);
+      userVal = checked ? checked.value : '';
+      ok = userVal === q.answer;
+    } else {
+      const field = document.getElementById('q-'+q.num);
+      userVal = field ? field.value : '';
+      if(q.type==='text'){
+        ok = isCorrectText(userVal, q.answers);
+      } else {
+        ok = userVal === q.answer;
+      }
+    }
+
+    row.classList.remove('correct','incorrect');
+    row.classList.add('checked', ok ? 'correct' : 'incorrect');
+    if(ok) correctCount++;
+
+    const existingTag = row.querySelector('.result-tag');
+    if(existingTag) existingTag.remove();
+    const tag = document.createElement('span');
+    tag.className = 'result-tag ' + (ok ? 'correct':'incorrect');
+    tag.textContent = ok ? 'Correct' : 'Incorrect';
+    row.querySelector('.q-prompt').appendChild(tag);
+
+    const correctAnswerText = q.answer || (q.answers ? q.answers[0] : '');
+    exp.innerHTML = (ok ? '' : `<strong>Correct answer:</strong> ${correctAnswerText}. `) + (q.explanation || '');
+  });
+
+  const pill = document.getElementById('score-pill');
+  pill.textContent = `${correctCount} / ${questions.length} correct`;
+  pill.classList.add('show');
+}
+
+/* ================= RENDER: WRITING ================= */
+function renderWriting(){
+  const task = WRITING_TASKS.find(t=>t.id===state.writingTaskId);
+  const main = document.getElementById('main');
+
+  let chartHtml = '';
+  if(task.id==='task1'){
+    chartHtml = `<div class="chart-wrap">` + buildBarChart() + `</div>`;
+  }
+
+  let criteriaHtml = `<div class="criteria-grid">`;
+  task.criteria.forEach(c=>{
+    criteriaHtml += `<div class="criteria-card"><h3>${c.name}</h3><p>${c.text}</p></div>`;
+  });
+  criteriaHtml += `</div>`;
+
+  let samplesHtml = '';
+  task.samples.forEach(s=>{
+    samplesHtml += `<div class="sample">
+      <span class="sample-band">${s.band}</span>
+      <div class="sample-comment"><strong>${s.label}:</strong> ${s.comment}</div>
+    </div>`;
+  });
+
+  main.innerHTML = `
+    <div class="task-header fade-in">
+      <div class="task-eyebrow">Academic Writing</div>
+      <h1>${task.title}</h1>
+      <p>Write your response below, then press Check to review it against the official IELTS band descriptors.</p>
+    </div>
+    <div class="writing-layout fade-in">
+      <div class="panel prompt-card">
+        <div class="meta-row"><span>You should spend ${task.time} on this task.</span><span>Minimum ${task.minWords} words.</span></div>
+        <div class="prompt-box">${task.prompt}</div>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6;">${task.instruction}</p>
+        ${chartHtml}
+        <textarea id="essay" placeholder="Start writing here..."></textarea>
+        <div class="word-count" id="word-count">0 words</div>
+
+        <div class="action-row">
+          <button class="btn btn-primary" onclick="checkWriting('${task.id}')">Check</button>
+        </div>
+
+        <div class="feedback" id="writing-feedback">
+          <div class="check-row" id="wc-check"></div>
+          <div class="check-row" id="para-check"></div>
+
+          <details class="samples" open style="margin-top:20px;">
+            <summary>Assessment criteria for this task</summary>
+            ${criteriaHtml}
+          </details>
+
+          <details class="samples">
+            <summary>Compare with real candidate scripts</summary>
+            ${samplesHtml}
+          </details>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const essay = document.getElementById('essay');
+  const wc = document.getElementById('word-count');
+  essay.addEventListener('input', ()=>{
+    const words = countWords(essay.value);
+    wc.textContent = `${words} words`;
+    wc.classList.toggle('ok', words>=task.minWords);
+    wc.classList.toggle('low', words>0 && words<task.minWords);
+  });
+}
+
+function countWords(text){
+  const t = text.trim();
+  if(!t) return 0;
+  return t.split(/\s+/).length;
+}
+
+function checkWriting(taskId){
+  const task = WRITING_TASKS.find(t=>t.id===taskId);
+  const essay = document.getElementById('essay').value;
+  const words = countWords(essay);
+  const paragraphs = essay.split(/\n\s*\n/).filter(p=>p.trim().length>0).length;
+
+  const wcCheck = document.getElementById('wc-check');
+  const paraCheck = document.getElementById('para-check');
+
+  const wcOk = words >= task.minWords;
+  wcCheck.innerHTML = `<span class="dot ${wcOk?'ok':'warn'}"></span> ${words} words written — ${wcOk ? `meets the ${task.minWords}-word minimum.` : `below the ${task.minWords}-word minimum required by the task.`}`;
+
+  const paraOk = paragraphs >= 3;
+  paraCheck.innerHTML = `<span class="dot ${paraOk?'ok':'warn'}"></span> ${paragraphs} paragraph${paragraphs===1?'':'s'} detected — ${paraOk ? 'a clear paragraph structure supports Coherence and Cohesion.' : 'consider organising your answer into distinct paragraphs (introduction, body points, conclusion).'}`;
+
+  document.getElementById('writing-feedback').classList.add('show');
+}
+
+function buildBarChart(){
+  const data = {
+    male:   { full:[100,140,225], part:[1000,850,900] },
+    female: { full:[60,200,230],  part:[700,820,1100] }
+  };
+  const years = ['1970/71','1980/81','1990/91'];
+  const maxVal = 1200;
+  const chartH = 220, chartW = 520, baseY = 20, groupW = 70, barW = 16, gap = 6;
+  let x = 60;
+  let bars = '';
+  let labels = '';
+
+  function drawGroup(fullVal, partVal, xPos, year){
+    const partH = (partVal/maxVal)*chartH;
+    const fullH = (fullVal/maxVal)*chartH;
+    bars += `<rect x="${xPos}" y="${baseY+chartH-partH}" width="${barW}" height="${partH}" fill="#C99A63" opacity="0.55"/>`;
+    bars += `<rect x="${xPos+barW+gap}" y="${baseY+chartH-fullH}" width="${barW}" height="${fullH}" fill="#28392F"/>`;
+    labels += `<text x="${xPos+barW}" y="${baseY+chartH+18}" font-size="10" fill="#736C5C" font-family="Inter" text-anchor="middle">${year}</text>`;
+  }
+
+  let svg = `<svg viewBox="0 0 620 300" xmlns="http://www.w3.org/2000/svg">`;
+  svg += `<text x="150" y="16" font-size="12" fill="#28392F" font-family="Inter" font-weight="600" text-anchor="middle">Male</text>`;
+  svg += `<text x="460" y="16" font-size="12" fill="#28392F" font-family="Inter" font-weight="600" text-anchor="middle">Female</text>`;
+
+  // axis
+  svg += `<line x1="55" y1="${baseY}" x2="55" y2="${baseY+chartH}" stroke="#DAD3C0"/>`;
+  [0,200,400,600,800,1000,1200].forEach(v=>{
+    const y = baseY + chartH - (v/maxVal)*chartH;
+    svg += `<line x1="55" y1="${y}" x2="580" y2="${y}" stroke="#DAD3C0" stroke-width="0.5"/>`;
+    svg += `<text x="48" y="${y+3}" font-size="9" fill="#736C5C" font-family="Inter" text-anchor="end">${v}</text>`;
+  });
+
+  let gx = 80;
+  years.forEach((y,i)=>{ drawGroup(data.male.full[i], data.male.part[i], gx, y); gx += groupW; });
+  gx += 30;
+  years.forEach((y,i)=>{ drawGroup(data.female.full[i], data.female.part[i], gx, y); gx += groupW; });
+
+  svg += bars + labels;
+  svg += `<rect x="180" y="270" width="12" height="12" fill="#C99A63" opacity="0.55"/><text x="197" y="280" font-size="10" fill="#28392F" font-family="Inter">Part-time education</text>`;
+  svg += `<rect x="350" y="270" width="12" height="12" fill="#28392F"/><text x="367" y="280" font-size="10" fill="#28392F" font-family="Inter">Full-time education</text>`;
+  svg += `<text x="10" y="150" font-size="9" fill="#736C5C" font-family="Inter" transform="rotate(-90 10,150)">Thousands</text>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+/* ================= MAIN RENDER ================= */
+function renderMain(){
+  if(state.mode==='reading') renderReading();
+  else renderWriting();
+}
+
+document.querySelectorAll('.mode-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.mode = btn.dataset.mode;
+    renderSubnav();
+    renderMain();
+  });
+});
+
+renderSubnav();
+renderMain();
+</script>
+</body>
+</html>
